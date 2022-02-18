@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { DataService } from '../services/data.service';
+
 
 @Component({
   selector: 'app-home',
@@ -8,9 +10,13 @@ import { Component } from '@angular/core';
 export class HomePage {
   currentDate: string;
 
-  constructor() {
+  constructor(private dataService: DataService) {
+    this.dataService.getNotes().subscribe(res => {
+      console.log(res)
+    })
     const date = new Date();
    this.currentDate = date.toLocaleDateString('fr-FR');
   }
+
 
 }
