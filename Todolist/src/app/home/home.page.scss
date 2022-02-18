@@ -1,0 +1,18 @@
+.bg-img {
+  padding: 1px;
+  height: 100%;
+  width: 100%;
+  background-image: url('../../assets/bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+ion-title { text-align: center !important; }
+
+h1 {
+  color: black;
+  text-align: center;
+  font-size: medium;
+  margin-bottom: 15px;
+  text-transform: capitalize;
+}
