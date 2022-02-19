@@ -10,16 +10,11 @@
  <div class="bg-img">
    <h1>{{ currentDate }}</h1>
 
-   <ion-card *ngFor="let task of tasks">
+   <ion-card  *ngFor="let task of tasks">
     <ion-item-sliding>
-      <ion-item lines="none">
+      <ion-item (click)="openTask(task)" lines="none">
         <ion-label>
-          <p>titre</p>
           {{ task.title }}
-        </ion-label>
-        <ion-label>
-          <p>description</p>
-          {{ task.description }}
         </ion-label>
         <ion-label>
           <p>crée le {{ task.create_date }}</p>
@@ -38,7 +33,7 @@
     <form (ngSubmit)="addTask()">
     <ion-item >
       <ion-input [(ngModel)]="myTitleTask" name="myTitle" placeholder="Entrer le titre" required></ion-input>
-      <ion-input [(ngModel)]="myDescriptionTask" name="myDesc" placeholder="Description(facultatif)"></ion-input>
+      <ion-textarea [(ngModel)]="myDescriptionTask" name="myDesc" placeholder="Description(facultatif)"></ion-textarea>
       <ion-button  type="submit" shape="round" slot="end">
         <ion-icon slot="icon-only" name="add"></ion-icon>
       </ion-button>

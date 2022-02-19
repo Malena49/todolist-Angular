@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { ModalPage } from '../modal/modal.page';
 import { DataService } from '../services/data.service';
 
 
@@ -16,13 +18,26 @@ export class HomePage {
   addTaskBool: boolean;
 
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private modalCtrl : ModalController) {
     this.dataService.getTasks().subscribe(res => {
     this.tasks = res; 
     })
     const date = new Date();
    this.currentDate = date.toLocaleDateString('fr-FR');
   }
+
+  async openTask(task) { 
+    const modal = await this.modalCtrl.create({
+      component: ModalPage,
+      componentProps: {id: task.id},
+      breakpoints: [0, 0.5, 0.8],
+      initialBreakpoint: 0.5
+    });
+    modal.present()
+  }
+  
+
+
 
   showForm() {
     this.addTaskBool = !this.addTaskBool;

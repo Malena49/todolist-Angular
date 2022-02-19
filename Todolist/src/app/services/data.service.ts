@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
-import { collectionData, Firestore } from "@angular/fire/firestore";
-import { addDoc, collection } from "firebase/firestore";
+import { collectionData, docData, Firestore } from "@angular/fire/firestore";
+import { addDoc, collection, deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { Observable } from "rxjs";
 
 export interface Task {
     id?: string;
@@ -16,15 +17,35 @@ export interface Task {
 })
 export class DataService {
 
-    constructor(private firestore: Firestore) { }
+    update_date: string
 
-    getTasks() {
+    constructor(private firestore: Firestore) {
+        const date = new Date();
+        this.update_date = date.toLocaleDateString('fr-FR');
+     }
+
+    getTasks(): Observable<Task[]> { 
         const taskRef = collection(this.firestore, 'tasks')
-        return collectionData(taskRef, { idField: 'id'});
+        return collectionData(taskRef, { idField: 'id'}) as Observable<Task[]>;
+    }
+
+    getTaskById(id): Observable<Task> {
+        const taskDocRef = doc(this.firestore, `tasks/${id}`);
+        return docData(taskDocRef, { idField: 'id'}) as Observable<Task>
     }
 
     addTask(task: Task) {
         const tasksRef = collection(this.firestore, 'tasks');
         return addDoc(tasksRef, task)
+    }
+
+    deleteTask(task: Task) {
+        const taskDocRef = doc(this.firestore, `tasks/${task.id}`);
+        return deleteDoc(taskDocRef);
+    }
+
+    updateTask(task: Task) {
+        const taskDocRef = doc(this.firestore, `tasks/${task.id}`)
+        return updateDoc(taskDocRef, { title: task.title, description: task.description, update_date: this.update_date})
     }
 }
