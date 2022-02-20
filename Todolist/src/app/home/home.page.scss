@@ -16,3 +16,38 @@ h1 {
   margin-bottom: 15px;
   text-transform: capitalize;
 }
+
+.todoL {
+  width: 90%;
+  max-width: 800px;
+  margin: auto;
+  margin-bottom: 1rem;
+}
+
+.task{
+  cursor: pointer;
+}
+
+.taskAdd{
+  max-width: 800px;
+ margin: auto;
+}
+
+p{
+  text-align: right;
+}
+
+.add-button{
+  max-width: 800px;
+  margin: auto;
+}
+
+.signIn{
+  max-width: 800px;
+  margin: auto;
+  width: 80%;
+}
+
+.connectButton{
+  width: 100%;
+}

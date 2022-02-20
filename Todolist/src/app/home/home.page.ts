@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ModalPage } from '../modal/modal.page';
-import { DataService } from '../services/data.service';
+import { DataService, Task } from '../services/data.service';
 
 
 @Component({
@@ -16,6 +16,7 @@ export class HomePage {
   myTitleTask = "";
   myDescriptionTask = "";
   addTaskBool: boolean;
+  task: Task = null;
 
 
   constructor(private dataService: DataService, private modalCtrl : ModalController) {
@@ -53,6 +54,12 @@ export class HomePage {
  this.dataService.addTask({title: this.myTitleTask, description: this.myDescriptionTask, create_date: this.currentDate, update_date: this.currentDate})
 this.showForm();
    }
+
+}
+
+deleteTask() {
+ this.dataService.deleteTask(this.task);
+  this.modalCtrl.dismiss()
 
 }
 

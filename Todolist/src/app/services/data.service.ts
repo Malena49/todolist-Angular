@@ -19,10 +19,13 @@ export class DataService {
 
     update_date: string
 
-    constructor(private firestore: Firestore) {
+    constructor(private firestore: Firestore, ) {
         const date = new Date();
         this.update_date = date.toLocaleDateString('fr-FR');
      }
+
+
+
 
     getTasks(): Observable<Task[]> { 
         const taskRef = collection(this.firestore, 'tasks')
