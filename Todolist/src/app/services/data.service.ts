@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { collectionData, docData, Firestore } from "@angular/fire/firestore";
 import { addDoc, collection, deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { Auth, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
+import { LoginData } from '../interfaces/login-data.interface';
 import { Observable } from "rxjs";
 
 export interface Task {
@@ -19,7 +21,7 @@ export class DataService {
 
     update_date: string
 
-    constructor(private firestore: Firestore, ) {
+    constructor(private firestore: Firestore, public auth: Auth) {
         const date = new Date();
         this.update_date = date.toLocaleDateString('fr-FR');
      }
@@ -51,4 +53,13 @@ export class DataService {
         const taskDocRef = doc(this.firestore, `tasks/${task.id}`)
         return updateDoc(taskDocRef, { title: task.title, description: task.description, update_date: this.update_date})
     }
+
+    login({ email, password }: LoginData) {
+        return signInWithEmailAndPassword(this.auth, email, password);
+      }
+
+
+      logout() {
+        return signOut(this.auth);
+      }
 }

@@ -9,20 +9,25 @@
 <ion-content [fullscreen]="true">
  <div class="bg-img">
 
-   <div class="signIn">
+   <form *ngIf="!loggedBool" (ngSubmit)="login()" class="signIn">
      <ion-item >
-       <ion-label position="floating">Email</ion-label>
-       <ion-input type="text" aria-placeholder="Email"></ion-input>
+       <ion-label  position="floating">Email</ion-label>
+       <ion-input [(ngModel)]="myEmail" name="myEmail" type="email" aria-placeholder="Email" required></ion-input>
      </ion-item>
 
      <ion-item >
       <ion-label position="floating">Mot de Passe</ion-label>
-      <ion-input type="text" aria-placeholder="Mot de Passe"></ion-input>
+      <ion-input [(ngModel)]="myPassword" name="myPassword" type="password" aria-placeholder="Mot de Passe"></ion-input>
     </ion-item>
-    <ion-button class="connectButton">Se Connecter</ion-button>
-   </div>
+    <ion-button color="success" type="submit" class="connectButton">Se Connecter</ion-button>
+   </form>
 
-   <h1>{{ currentDate }}</h1>
+<div *ngIf="loggedBool">
+  <div class="disconnectButton"> 
+  <ion-button color="warning" (click)="logout()" class="btnElt" >Se Deconnecter</ion-button>
+</div>
+
+   <h1 >Aujourd'hui {{ currentDate }}</h1>
 
    <ion-card  class="todoL" *ngFor="let task of tasks">
     <ion-item-sliding>
@@ -66,5 +71,6 @@
     <ion-icon name="close" slot="start"></ion-icon>
     Annuler
   </ion-button>
+</div>
  </div>
 </ion-content>

@@ -17,7 +17,10 @@ export class HomePage {
   myDescriptionTask = "";
   addTaskBool: boolean;
   task: Task = null;
-
+  myEmail = "";
+  myPassword = "";
+  loggedBool: boolean;
+  userData: any ;
 
   constructor(private dataService: DataService, private modalCtrl : ModalController) {
     this.dataService.getTasks().subscribe(res => {
@@ -25,6 +28,11 @@ export class HomePage {
     })
     const date = new Date();
    this.currentDate = date.toLocaleDateString('fr-FR');
+   const user = JSON.parse(localStorage.getItem('user'))
+
+    if( user ) {
+      this.loggedBool = !this.loggedBool;
+    }
   }
 
   async openTask(task) { 
@@ -62,5 +70,46 @@ deleteTask() {
   this.modalCtrl.dismiss()
 
 }
+
+login() {
+  if (this.myEmail === '' ) {
+    alert("veuillez entrer un email")
+  } else if(this.myPassword === '') {
+    alert("veuillez entrer un mot de passe")
+  } else {
+
+  
+  this.dataService.login({email: this.myEmail, password: this.myPassword})
+  .then((res) => {
+    console.log(res)
+    this.userData = res;
+    localStorage.setItem('user', JSON.stringify(this.userData));
+        JSON.parse(localStorage.getItem('user'));
+    this.loggedBool = !this.loggedBool;
+    this.myEmail = "";
+    this.myPassword = "";
+
+
+
+  }).catch((error) => {
+    console.log(error)
+    localStorage.setItem('user', null);
+        JSON.parse(localStorage.getItem('user'));
+    alert("veuillez reessayer")
+  })
+}
+}
+
+logout() {
+  this.dataService.logout()
+  .then(() =>  {
+    localStorage.removeItem('user');
+    this.loggedBool = !this.loggedBool
+  })
+  .catch((e) => console.log(e.message))
+}
+
+
+
 
 }

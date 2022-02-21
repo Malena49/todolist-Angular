@@ -10,11 +10,22 @@
 ion-title { text-align: center !important; }
 
 h1 {
-  color: black;
+  color: white;
+  text-shadow: 30px;
   text-align: center;
-  font-size: medium;
+  font-size:large;
   margin-bottom: 15px;
   text-transform: capitalize;
+  
+}
+
+.disconnectButton{
+  margin: auto;
+  width: 30%;
+}
+
+.btnElt{
+  width: 100%;
 }
 
 .todoL {

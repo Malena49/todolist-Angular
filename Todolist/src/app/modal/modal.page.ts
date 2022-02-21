@@ -23,12 +23,16 @@ ngOnInit() {
 }
 
 async updateTask() {
+    if (this.task.title === "" ){
+        alert("veuillez entrer un titre")
+    } else { 
     this.dataService.updateTask(this.task);
     const toast = await this.toastCtrl.create({
         message: 'tache mise à jour !',
         duration: 1000
     })
     toast.present();
+}
 }
 
 async deleteTask() {
